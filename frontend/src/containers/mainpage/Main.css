@@ -1,0 +1,19 @@
+.Main{
+    text-align: center;
+}
+
+.main-button{
+    margin: 5px;
+}
+
+.main-button__login{
+    width: 84.15px;
+}
+
+.failure_block{
+    color: red;
+}
+
+.success_block{
+    color: green;
+}
