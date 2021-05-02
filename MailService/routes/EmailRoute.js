@@ -5,6 +5,6 @@ const isAuth=require('../middleware/isAuth');
 
 const router=express.Router();
 
-router.post('/sendemail',isAuth,EmailController.sendEmail)
+router.post('/sendemail',EmailController.sendEmail)
 
 module.exports=router;

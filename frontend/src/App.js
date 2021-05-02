@@ -6,7 +6,10 @@ import Main from './containers/mainpage/Main';
 class App extends Component{
   render(){
     return(
-      <Main/>
+      <div>
+        <Main/>
+      </div>
+      
     )
   }
 }

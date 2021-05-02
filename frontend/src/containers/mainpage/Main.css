@@ -17,3 +17,8 @@
 .success_block{
     color: green;
 }
+
+li{
+    padding: 5px;
+    display: inline;
+}

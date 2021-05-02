@@ -7,5 +7,31 @@ Content-Type: application/json
     "password":"a"
 }
 
-####
+#### to get users
+GET http://localhost:4001/users
+Content-Type: application/json
+
+{
+    
+}
+
+###
+PUT http://localhost:4001/user
+Content-Type: application/json
+
+{
+    "email":"sai.teja25@no.reply.com",
+    "firstname":"chelluboinaa",
+    "lastname":"chellubionaiodfgsdofngdflg;"
+}
+
+### to add user
+POST http://localhost:4001/user
+Content-Type: application/json
+
+{
+    "firstname":"sai",
+    "lastname":"teja",
+    "email":"sai.chelluboina@noreply.com"
+}
 
