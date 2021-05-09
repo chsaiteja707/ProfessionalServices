@@ -7,8 +7,8 @@ const app=express();
 const mongoConnect=require('./util/db').mongoConnect;
 const dbRoutes=require('./routes/dbRoutes');
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
 app.use(dbRoutes);
 
 

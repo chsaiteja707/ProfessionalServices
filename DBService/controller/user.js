@@ -1,3 +1,4 @@
+const url=require('url');
 const User=require('../model/User')
 exports.getData=(req,res,next)=>{
     User.getUsers()
@@ -49,4 +50,21 @@ exports.editUser=(req,res,next)=>{
     .catch(err=>{
         console.log(err);
     })
+}
+
+exports.getPaginatedData=(req,res,next)=>{
+    console.log(req.params);
+    User.paginatedUserList(req.params.page,req.params.limit)
+    .then(result=>{
+        res.send(result)
+    })
+}
+
+exports.getTotalUsers=(req,res,next)=>{
+    // console.log()
+    
+    User.getUserCount()
+        .then(total=>{
+            res.send({total:total});
+        })
 }

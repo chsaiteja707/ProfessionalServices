@@ -35,3 +35,18 @@ Content-Type: application/json
     "email":"sai.chelluboina@noreply.com"
 }
 
+###
+GET http://localhost:4001/users/11000/
+Content-Type: application/json
+
+{
+
+}
+
+###
+GET http://localhost:4001/total/users
+Content-Type: application/json
+
+{
+
+}

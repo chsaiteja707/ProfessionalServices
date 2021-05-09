@@ -2,7 +2,7 @@
     text-align: center;
 }
 
-.main-button{
+.main_button{
     margin: 5px;
 }
 
@@ -21,4 +21,8 @@
 li{
     padding: 5px;
     display: inline;
+}
+
+.btn{
+    padding: 50%;
 }

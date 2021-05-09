@@ -9,3 +9,13 @@ exports.getData=async (req,res,next)=>{
     await res.send({response:emailServiceResponse.data,status:emailServiceResponse.status});
 }
 
+exports.clientRecon=async (req,res,next)=>{
+    console.log(req.body);
+    console.log('hello external')
+    const fetchDBData=await fileDbData.fetchDBData()
+    const reconData={dbData:fetchDBData,fileData:req.body};
+    const validationResult=await reconLogic.logic(reconData);
+    res.send(validationResult);
+    // res.sendStatus(200);
+}
+

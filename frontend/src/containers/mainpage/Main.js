@@ -1,116 +1,107 @@
 import React, {Component} from 'react';
-// import {Route, NavLink, Switch, BrowserRouter} from 'react-router-dom';
+import axios from 'axios'
+import {Button} from 'react-bootstrap'
 
-import SendEmail from './login/email/SendEmail';
-// import Login from './login/Login';
-// import Signup from './signup/SignUp';
+import SendEmail from '../email/SendEmail';
+import Chatbox from '../chatbox/Chatbox';
+import Users from '../users/Users';
+import Recon from '../recon/Recon';
+
 import './Main.css';
-// import Signup from './signup/SignUp';
-import Users from './login/users/Users'
 
 class Main extends Component{
   state={
     isLoginClicked:true,
     isSignupClicked:false,
-    serviceSelected:null
+    serviceSelected:null,
+    totalUsers:0,
+    isLoading:false
   }
-
-    // onLoginClickedHandler=(event)=>{
-    //   console.log('login clicked');
-    //   this.setState({isLoginClicked:true,isSignupClicked:false})
-    // }
-
-    // onSignUpClickedHandler=(event)=>{
-    //   console.log('signup clicked')
-    //   this.setState({isLoginClicked:false,isSignupClicked:true})
-    // }
 
     onEmailClicked=(event)=>{
       this.setState({serviceSelected:'email'});
     }
 
-    onGetUsers=(event)=>{
+    onGetUsers=async (event)=>{
+      this.setState({isLoading:true});
+      var sessionToken=sessionStorage.getItem('userSessionID');
+      var totalUsers= await axios.get('http://localhost:4001/total/users',{ headers: {'Authorization' : 'Bearer '+sessionToken} })
+      this.setState({totalUsers:totalUsers.data.total,isLoading:false })
       this.setState({serviceSelected:'getUsers'});
+
+    }
+
+    onReconcile= (event)=>{
+      this.setState({serviceSelected:'recon'});
+    }
+
+    onChatBox=(event)=>{
+      this.setState({serviceSelected:'chatbox'})
+    }
+
+    logOutClicked=(event)=>{
+      console.log(this.props)
+      this.props.logOutHandler();
     }
 
 
     render(){
-      // var loginOrSignup=null;
-      // if(this.state.isLoginClicked){
-      //   loginOrSignup=(
-      //     <div>
-      //       <Login/>
-      //     </div>
-      //   )
-      // }else{
-      //   loginOrSignup=(
-      //     <div>
-      //       <Signup/>
-      //     </div>
-      //   )
-      // }
       var renderService=null;
-      switch (this.state.serviceSelected) {
-        case 'email':
-          renderService=(
-            <div>
-              <SendEmail/>
-            </div>
-          )
-          break;
-        case 'getUsers':
-          renderService=(
-            <div>
-              <Users/>
-            </div>
-          )
-          break;
-        default:
+      if(this.state.isLoading){
+        renderService= (<div>...Loading</div>)
+      }else{
+        switch (this.state.serviceSelected) {
+          case 'email':
             renderService=(
               <div>
-                <h1>Choose your service</h1>
+                <SendEmail/>
               </div>
-          )
-          break;
+            )
+            break;
+          case 'getUsers':
+            renderService=(
+              <div>
+                <Users totalUsers={this.state.totalUsers}
+                  />
+              </div>
+            )
+            break;
+          case 'recon':
+            renderService=(
+              <div>
+                <Recon
+                  />
+              </div>
+            )
+            break;
+          case 'chatbox':
+            renderService=(
+              <div>
+                <Chatbox/>
+              </div>
+            )
+            break;
+          default:
+              renderService=(
+                <div>
+                  <h1>Choose your service</h1>
+                </div>
+            )
+            break;
+        }
       }
-
+      
       return(
         <div className="Main">
           <h1>Professional Services App</h1>
-          {/* <button onClick={this.onLoginClickedHandler}>Login</button>
-          <button onClick={this.onSignUpClickedHandler}>Signup</button> */}
-          {/* {loginOrSignup} */}
-          <button onClick={this.onEmailClicked}>Send Email</button>
-          <button onClick={this.onGetUsers}>Get Users</button>
+          <Button variant="primary" size="lg" onClick={this.onEmailClicked} className="main_button">Send Email</Button>
+          <Button variant="success" size="lg" onClick={this.onGetUsers} className="main_button">Get Users</Button>
+          <Button variant="warning" size="lg" onClick={this.onReconcile} className="main_button">Reconcile</Button>
+          <Button variant="danger" size="lg" onClick={this.onChatBox} className="main_button">Chat Box</Button>
+          <Button varient="secondary" size="lg" onClick={this.logOutClicked}>Logout</Button>
           {renderService}
         </div>
       )
-
-      //   return (
-    //     <div className="Main">
-    //       <BrowserRouter>
-    //         <header>
-    //               <nav>
-    //                   <ul>
-    //                       <li><NavLink 
-    //                           to="/email/"
-    //                           exact
-    //                           >Email</NavLink></li>
-    //                       <li><NavLink to={{
-    //                           pathname: '/users',
-    //                           hash: '#submit',
-    //                           search: '?quick-submit=true'
-    //                       }}>Users</NavLink></li>
-    //                   </ul>
-    //               </nav>
-    //           </header>
-    //           <Switch>    
-    //               <Route path="/email" component={SendEmail} />
-    //               <Route path="/users" exact component={Users} />
-    //           </Switch> 
-    //       </BrowserRouter>
-    //     </div>
-    // );
     }
 }
 

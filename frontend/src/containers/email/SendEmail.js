@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import axios from 'axios';
 
+import { Button, Form, Row, Col} from 'react-bootstrap';
 import './SendEmail.css';
-import Spinner from '../../../../components/UI/Spinner';
+
 
 class SendEmail extends  Component{
 
@@ -55,7 +56,7 @@ class SendEmail extends  Component{
         var responseFromMailService;
         try {
             responseFromMailService=await axios.post('http://localhost:5001/sendemail',data,
-                { headers: {"Authorization" : 'Bearer '+sessionStorage.getItem('userSesssionID')} })
+                { headers: {"Authorization" : 'Bearer '+sessionStorage.getItem('userSessionID')} })
             if(responseFromMailService.status>=200){
                 console.log(responseFromMailService.data.sentTo);
                 this.setState({emailSent:'true'})
@@ -75,24 +76,57 @@ class SendEmail extends  Component{
         var display=null;
         var formData=null;
         if(this.state.isSending){
-            formData=<Spinner/>
+            formData=<div>Loading...</div>
         }else{
             formData=(
                 <div>
-                    <label>Recipeint Email</label><br/>
-                    <input  type="email" 
-                            onChange={this.recipientHandler}
-                            value={this.state.emailToSend}/><br/>
-                    <label>Subject</label><br/>
-                    <input  type="text"  
-                            onChange={this.subjectHandler}
-                            value={this.state.emailSubject}/><br/>
-                    <label> Content </label><br/>
-                    <textarea   onChange={this.contentHandler}
-                                value={this.state.emailText}
-                                className="subject__box"></textarea><br/>
-                    <button onClick={this.sendEmailHandler}>Send Email</button>
+                <Form>
+                    <Form.Group as={Row} >
+                        <Form.Label column sm={2}>
+                        To  
+                        </Form.Label>
+                        <Col sm={10}>
+                        <Form.Control type="email" 
+                                    placeholder="Email" 
+                                    onChange={this.recipientHandler} 
+                                    value={this.state.emailToSend}/>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} >
+                        <Form.Label column sm={2}>
+                        Subject
+                        </Form.Label>
+                        <Col sm={10}>
+                        <Form.Control type="password" 
+                                    placeholder="Subject" 
+                                    onChange={this.subjectHandler} 
+                                    value={this.state.emailSubject}/>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row} >
+                        <Form.Label column sm={2}>
+                        Body
+                        </Form.Label>
+                        <Col sm={10}>
+                        <Form.Control as="textarea" 
+                                    rows={3}  
+                                    placeholder="Body" 
+                                    onChange={this.contentHandler} 
+                                    value={this.state.emailText}/>
+                        </Col>
+                    </Form.Group>
+
+                    <Form.Group as={Row}>
+                        <Col sm={{ span: 10, offset: 2 }}>
+                        <Button variant="danger" 
+                                onClick={this.sendEmailHandler}>Send</Button>
+                        </Col>
+                    </Form.Group>
+                </Form>
                 </div>
+
             )
         }
         if(this.state.emailSent){

@@ -7,8 +7,7 @@ class Signup extends Component{
         return(
             <div>From sign up page</div>
         )
-    }
-    
+    }  
 }
 
 export default Signup;

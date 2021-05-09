@@ -61,6 +61,26 @@ class User{ //in Mongo Cloud name is specified as User for DB
             return user;
         })
     }
+
+    static paginatedUserList(pageNumber,itemsPerPage){
+        itemsPerPage=parseInt(itemsPerPage)
+        const db=getDb();
+        return db.collection('user')
+                .find()
+                .sort({_id:1})
+                .skip(pageNumber>0?(pageNumber-1)*itemsPerPage:0)
+                .limit(itemsPerPage)
+                .toArray()
+                .then(results=>{
+                    return results;
+                })
+    }
+
+    static async getUserCount(){
+        const db=getDb();
+        const total=await db.collection('user').countDocuments();
+        return total;
+    }
 }
 module.exports=User;
 
