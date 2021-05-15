@@ -16,6 +16,27 @@ class User{ //in Mongo Cloud name is specified as User for DB
             console.log(err);
         }   
     }
+
+    static async createUser(user){
+        const db=getDb();
+        try{
+            const createUser=await db.collection('User')
+                .insertOne({
+                    firstName:user.firstName,
+                    lastName:user.lastName,
+                    password:user.password,
+                    phoneNumber:user.phoneNumber,
+                    email:user.email,
+                    address:user.address,
+                    gender:user.gender,
+                    role:user.role,
+                    city:user.city,
+                })
+            return createUser;
+        } catch(err){
+            console.log(err);
+        }
+    }
 }
 module.exports=User;
 

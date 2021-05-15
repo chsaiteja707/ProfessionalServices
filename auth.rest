@@ -50,3 +50,20 @@ Content-Type: application/json
 {
 
 }
+
+###
+POST http://localhost:4002/user/forgotPassword
+Content-Type: application/json
+
+{
+    "userId":"chsaiteja707@gmail.com"
+}
+
+###
+POST http://localhost:4002/user/otpValidator
+Content-Type: application/json
+
+{
+    "userId":"chsaiteja707@gmail.com",
+    "otpRecieved":"079635"
+}

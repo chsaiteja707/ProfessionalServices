@@ -1,6 +1,5 @@
 
 import React,{ Component } from 'react';
-import {Button} from 'react-bootstrap';
 
 import Login from './containers/login/Login'
 import Signup from './containers/signup/SignUp';
@@ -13,7 +12,6 @@ import axios from 'axios';
 class App extends Component{
   state={
     serviceSelected:''
-    
   }
 
   loginHandler= async (event)=>{
@@ -55,12 +53,10 @@ class App extends Component{
     var renderService=null;
     var buttons=(
       <div>
-         <Button variant="primary" 
-                  onClick={this.loginHandler}
-                  className="principal-btn">Login</Button>
-          <Button variant="success" 
-                  onClick={this.signUpHandler}
-                  className="principal-btn">Signup</Button>
+         <button  onClick={this.loginHandler}
+                  className="btn btn-primary principal-btn">Login</button>
+          <button onClick={this.signUpHandler}
+                  className="btn btn-success principal-btn">Signup</button>
       </div>
     )
       switch (this.state.serviceSelected) {
@@ -109,7 +105,7 @@ class App extends Component{
           break;
       }
       return(
-        <div>
+        <div className="container">
           {renderService}
         </div>
       )
