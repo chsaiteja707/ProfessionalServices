@@ -60,10 +60,10 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:4002/user/otpValidator
+GET http://localhost:5001/news/latest
 Content-Type: application/json
 
 {
-    "userId":"chsaiteja707@gmail.com",
-    "otpRecieved":"079635"
+
 }
+

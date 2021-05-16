@@ -7,9 +7,11 @@ import Users from '../users/Users';
 import Recon from '../recon/Recon';
 import Approvals from '../approvals/Approvals';
 import Requests from '../requests/Requests';
-import Shop from '../shop/Shop';
+import Shop from '../store/Store';
+import NewsFeed from '../newsfeed/NewsFeed';
 
 import './Main.css';
+
 
 class Main extends Component{
   state={
@@ -53,7 +55,9 @@ class Main extends Component{
             break;
           case 'Requests':  renderService=(<div><Requests/></div>)
             break;
-          case 'Shop':      renderService=(<div><Shop/></div>)
+          case 'Store':      renderService=(<div><Shop/></div>)
+            break;
+          case 'News':      renderService=(<div><NewsFeed/></div>)
             break;      
           default:renderService=(<div><h1>Choose your service</h1></div>)
             break;
@@ -69,7 +73,8 @@ class Main extends Component{
           <button onClick={this.onClickHandler} className="btn btn-danger main_button">Chat Box</button>
           <button onClick={this.onClickHandler} className="btn btn-success main_button">Approvals</button>
           <button onClick={this.onClickHandler} className="btn btn-warning main_button">Requests</button>
-          <button onClick={this.onClickHandler} className="btn btn-info main_button">Shop</button>
+          <button onClick={this.onClickHandler} className="btn btn-info main_button">Store</button>
+          <button onClick={this.onClickHandler} className="btn btn-dark main_button">News</button>
           <button onClick={this.onClickHandler} className="btn btn-primary main_button">Logout</button>
           {renderService}
         </div>
